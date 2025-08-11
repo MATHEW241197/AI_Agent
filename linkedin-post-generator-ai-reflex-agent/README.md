@@ -26,8 +26,11 @@ This project is perfect for:
 
 -Additional Options:
 >Add emojis
+
 >Use line breaks for readability
+
 >Include personal reflections
+
 >Length Control: Limit the post to a specific character count.
 
 -AI-Powered: Uses Google Gemini 2.5 Flash for fast, high-quality generation.
@@ -38,13 +41,17 @@ This project is perfect for:
 1️⃣ Clone the repository
 
 >git clone https://github.com/<your-username>/linkedin-post-generator.git
+
 >cd linkedin-post-generator
 
 2️⃣ Install dependencies
 
 >Open the .ipynb file in Google Colab or Jupyter Notebook and run:
+
 >!pip install google-generativeai --quiet
+
 >!pip install ipywidgets --quiet
+
 >jupyter nbextension enable --py widgetsnbextension
 
 
@@ -68,13 +75,21 @@ Enter the Gemini API Key: *****
 -Fill in:
 
 >Post Topic – e.g., "Promoted to Senior Analyst at XYZ!"
+
 >Audience – e.g., "Students, HRs, Working Professionals"
+
 >Tone – e.g., "Professional"
+
 >Type – e.g., "Career Updates"
+
 >Key Point – e.g., "Gratitude for mentors and peers"
+
 >Goal – e.g., "Inspire"
+
 >Call to Action (CTA) – e.g., "Share your journey!"
+
 >Hashtags – e.g., "#Leadership #Career"
+
 >Optional: Mentions, links, emoji toggle, line breaks, reflection.
 
 -Click Generate Post.
