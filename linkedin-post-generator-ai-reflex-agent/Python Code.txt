@@ -1,0 +1,170 @@
+# ==========================================
+# LinkedIn Post Generator (AI Reflex Agent)
+# ==========================================
+
+# Step 1: Install required packages
+# Run these in your notebook/terminal before running the script
+# !pip install google-generativeai --quiet
+# !pip install ipywidgets --quiet
+
+# Step 2: Import libraries
+import google.generativeai as genai
+import ipywidgets as widgets
+from IPython.display import display, Markdown
+import os
+import getpass
+
+# Step 3: Set up Gemini API
+os.environ['GOOGLE_API_KEY'] = getpass.getpass("Enter the Gemini API Key")
+genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
+model = genai.GenerativeModel("gemini-2.5-flash")
+
+# Step 4: Define the input form
+post_topic = widgets.Text(
+    description="Post Topic:",
+    placeholder="e.g., Promoted to Senior Analyst at XYZ!",
+    layout=widgets.Layout(width='400px')
+)
+
+audience_input = widgets.Text(
+    description="Audience:",
+    placeholder="e.g., Students, HRs, Working Professionals etc",
+    layout=widgets.Layout(width='400px')
+)
+
+tone_input = widgets.Dropdown(
+    description="Tone:",
+    options=['Professional', 'Casual', 'Witty', 'Motivational', 'Informative', 'Reflective', 'Inspirational', 'Conversational'],
+    value='Professional'
+)
+
+content_type = widgets.Dropdown(
+    description="Type:",
+    options=[
+        'Personal Storytelling', 'Celebration Post', 'Project Progress', 'Community Support Requests',
+        'Career Updates', 'Hiring Posts', 'Event takeaway', 'Tips/advice', 'Industry insight', 'Resource Sharing'
+    ],
+    value='Career Updates'
+)
+
+key_point = widgets.Textarea(
+    description="Key Point:",
+    placeholder="Main message or takeaway",
+    layout=widgets.Layout(width='400px', height='60px')
+)
+
+goal_input = widgets.Dropdown(
+    description="Goal:",
+    options=['Educate', 'Inspire', 'Share success', 'Ask for help', 'Notification', 'Express gratitude', 'Promotion'],
+    value='Educate'
+)
+
+cta_input = widgets.Text(
+    description="CTA:",
+    placeholder="e.g., Share your thoughts!",
+    layout=widgets.Layout(width='400px')
+)
+
+hashtag_input = widgets.Text(
+    description="Hashtags:",
+    placeholder="#Leadership #Career",
+    layout=widgets.Layout(width='400px')
+)
+
+emoji_checkbox = widgets.Checkbox(
+    description="Use Emojis",
+    value=True
+)
+
+linebreak_checkbox = widgets.Checkbox(
+    description="Use Line Breaks",
+    value=True
+)
+
+reflection_checkbox = widgets.Checkbox(
+    description="Add Personal Reflection",
+    value=False
+)
+
+link_input = widgets.Text(
+    description="Link:",
+    placeholder="Optional resource or event link",
+    layout=widgets.Layout(width='400px')
+)
+
+mention_input = widgets.Text(
+    description="Mentions:",
+    placeholder="@People @Orgs",
+    layout=widgets.Layout(width='400px')
+)
+
+length_slider = widgets.IntSlider(
+    description="Max Length:",
+    value=800,
+    min=100,
+    max=1500,
+    step=50
+)
+
+submit_button = widgets.Button(
+    description='Generate Post',
+    button_style='success',
+    tooltip='Click to generate LinkedIn post'
+)
+
+output = widgets.Output()
+
+# Step 5: Generate Post Function
+def generate_post(b):
+    output.clear_output()
+    prompt = f"""
+    You are an expert LinkedIn post creator.
+    Write a {content_type.value.lower()} post about the topic: "{post_topic.value}".
+    Don't mention it as a draft of a LinkedIn post.
+    Audience: {audience_input.value}.
+    Use a {tone_input.value.lower()} tone.
+    The key message of the post is: {key_point.value}.
+    Goal of post: {goal_input.value}.
+    Include this call to action: {cta_input.value}.
+    Include these hashtags as last line: {hashtag_input.value}.
+    Also add relevant few other hashtags of your own too.
+    Ensure there is a space before each hashtag so they render correctly in Markdown.
+    {"Use emojis." if emoji_checkbox.value else "Do not use emojis."}
+    {"Use line breaks for readability." if linebreak_checkbox.value else "Avoid line breaks."}
+    {"Include personal reflection in the style." if reflection_checkbox.value else "No personal reflection."}
+    {f"Mention these: {mention_input.value}." if mention_input.value else ""}
+    {f"Add this link: {link_input.value}." if link_input.value else ""}
+    Limit it to {length_slider.value} characters.
+    """
+    with output:
+        try:
+            response = model.generate_content(prompt)
+            post = response.text.strip()
+            display(Markdown(f"### Generated LinkedIn Post:\n\n{post}"))
+        except Exception as e:
+            print("Error:", e)
+
+submit_button.on_click(generate_post)
+
+# Step 6: Display the form
+form = widgets.VBox([
+    widgets.HTML(value="<h2>LinkedIn Post Generator</h2>"),
+    post_topic,
+    audience_input,
+    tone_input,
+    content_type,
+    key_point,
+    goal_input,
+    cta_input,
+    hashtag_input,
+    mention_input,
+    link_input,
+    emoji_checkbox,
+    linebreak_checkbox,
+    reflection_checkbox,
+    length_slider,
+    submit_button,
+    output
+])
+
+display(form)
