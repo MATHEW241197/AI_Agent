@@ -1,2 +1,2 @@
 # AI_Agent
-This repository hosts multiple AI agents designed to tackle different real-world problems using advanced natural language processing and machine learning techniques. Each agent is organized into its own folder with separate code, dependencies, and documentation for easy navigation and use.
+This repository hosts distinct AI-powered agents, each designed to solve unique real-world problems using langgraph, RAG techniques or drag and drop tools. The project is organized into separate folders, with each folder containing the full codebase, dependencies, and documentation for an individual AI agent. 
