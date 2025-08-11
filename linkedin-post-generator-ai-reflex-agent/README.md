@@ -99,7 +99,7 @@ Enter the Gemini API Key: *****
 
     📂 Project Structure
 
-linkedin-post-generator/
+linkedin-post-generator
 
     │
     ├── Main
