@@ -1,7 +1,7 @@
-LinkedIn Post Generator (AI Reflex Agent)
+    LinkedIn Post Generator (AI Reflex Agent)
 
 
-📌 Overview
+    📌 Overview
 
 The LinkedIn Post Generator (AI Reflex Agent) is an interactive Jupyter Notebook tool that uses Google Gemini AI to create high-quality, personalized LinkedIn posts in seconds. With a simple form interface powered by ipywidgets, you can customize post tone, type, audience, key points, and even hashtags—without writing a single line of prompt each time.
 
@@ -16,7 +16,7 @@ This project is perfect for:
 -Thought leaders sharing industry insights.
 
 
-🚀 Features
+    🚀 Features
 
 -Customizable Inputs: Topic, audience, tone, content type, key points, goals, CTAs, hashtags, mentions, and links.
 
@@ -26,36 +26,29 @@ This project is perfect for:
 
 -Additional Options:
 >Add emojis
-
 >Use line breaks for readability
-
 >Include personal reflections
-
 >Length Control: Limit the post to a specific character count.
 
 -AI-Powered: Uses Google Gemini 2.5 Flash for fast, high-quality generation.
 
 
-🛠️ Installation & Setup
+    🛠️ Installation & Setup
 
 1️⃣ Clone the repository
 
 >git clone https://github.com/<your-username>/linkedin-post-generator.git
-
 >cd linkedin-post-generator
 
 2️⃣ Install dependencies
 
 >Open the .ipynb file in Google Colab or Jupyter Notebook and run:
-
 >!pip install google-generativeai --quiet
-
 >!pip install ipywidgets --quiet
-
 >jupyter nbextension enable --py widgetsnbextension
 
 
-🔑 API Key Setup
+    🔑 API Key Setup
 
 This project uses Google Gemini API.
 
@@ -75,21 +68,13 @@ Enter the Gemini API Key: *****
 -Fill in:
 
 >Post Topic – e.g., "Promoted to Senior Analyst at XYZ!"
-
 >Audience – e.g., "Students, HRs, Working Professionals"
-
 >Tone – e.g., "Professional"
-
 >Type – e.g., "Career Updates"
-
 >Key Point – e.g., "Gratitude for mentors and peers"
-
 >Goal – e.g., "Inspire"
-
 >Call to Action (CTA) – e.g., "Share your journey!"
-
 >Hashtags – e.g., "#Leadership #Career"
-
 >Optional: Mentions, links, emoji toggle, line breaks, reflection.
 
 -Click Generate Post.
@@ -97,30 +82,22 @@ Enter the Gemini API Key: *****
 -Copy and paste your AI-crafted post to LinkedIn.
 
 
-📂 Project Structure
+    📂 Project Structure
 
 linkedin-post-generator/
 
     │
-
     ├── Main
-
       ├── LinkedIn_Post_Generator.ipynb   # Main notebook
-    
       ├── Python_Code.txt                 # Python code 
-
     ├── docs
-
       ├── image.png                       # UI image
-    
       ├── Report.pdf                      # Project report
-    
     ├── README.md                         # Project documentation
-
     └── requirements.txt                  # Python dependencies 
 
 
-⚡ Example Output
+    ⚡ Example Output
 
 Post Topic: Promoted to Senior Analyst at XYZ
 
@@ -142,7 +119,7 @@ Share your thoughts on your biggest career breakthrough!
 #CareerGrowth #Promotion #LinkedIn #SuccessStories
 
 
-🧠 How It Works
+    🧠 How It Works
 
 ipywidgets creates a dynamic form for input.
 
@@ -153,12 +130,12 @@ Google Gemini API generates a LinkedIn-ready post.
 Output is displayed in Markdown format for easy copying.
 
 
-📜 License
+    📜 License
 
 This project is licensed under the MIT License – feel free to use, modify, and share.
 
 
-🤝 Contributing
+    🤝 Contributing
 
 Contributions are welcome!
 
@@ -171,7 +148,7 @@ Contributions are welcome!
 -Submit a pull request
 
 
-💡 Future Improvements
+    💡 Future Improvements
 
 -Add support for multiple social platforms (Twitter, Instagram captions).
 
@@ -180,7 +157,7 @@ Contributions are welcome!
 -Save generated posts history.
 
 
-👨‍💻 Author
+    👨‍💻 Author
 
 Mathew Abraham
 
