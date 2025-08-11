@@ -111,6 +111,7 @@ linkedin-post-generator
     ├── README.md                         # Project documentation
     └── requirements.txt                  # Python dependencies 
 
+Flowchart given above is the file directory
 
     ⚡ Example Output
 
