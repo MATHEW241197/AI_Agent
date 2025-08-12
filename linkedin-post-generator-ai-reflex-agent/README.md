@@ -40,7 +40,7 @@ This project is perfect for:
 
 1️⃣ Clone the repository
 
->git clone https://github.com/<your-username>/linkedin-post-generator.git
+>git clone https://github.com/MATHEW241197/AI_Agent/linkedin-post-generator-ai-reflex-agent.git
 
 >cd linkedin-post-generator
 
