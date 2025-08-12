@@ -67,19 +67,18 @@ This project is perfect for:
 
 📂 Project Structure
 
-hospital-waste-ai-agent/
+hospital-waste-ai-agent
 
-│
-
-├── README.md                  # Project documentation
-
-├── workflow-diagram.png       # System architecture visual
-
-├── error-log-template.xlsx    # Excel log for errors
-
-├── form-template.pdf          # Sample Google Form fields
-
-└── relay-workflow.json        # Relay App workflow configuration
+    │
+    ├── Main
+      ├── Hospital waste Management.pptx  # Project PPT
+    ├── docs
+      ├── image                           # UI image
+      ├── Cover Note.pdf                  # Project report
+      ├── Project Lean Canvas.pdf         # Project report
+    ├── samples                           # Sample project with different idea
+    ├── README.txt                        # Project documentation
+    └── requirements.txt                  # Python dependencies 
 
 
 ⚡ Example Workflow
