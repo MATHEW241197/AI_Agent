@@ -104,10 +104,11 @@ linkedin-post-generator
     │
     ├── Main
       ├── LinkedIn_Post_Generator.ipynb   # Main notebook
-      ├── Python_Code.txt                 # Python code 
+      ├── PYTHON_CODE.txt                 # Python code 
     ├── docs
       ├── image.png                       # UI image
       ├── Report.pdf                      # Project report
+    ├── samples                           # Sample project with different idea
     ├── README.md                         # Project documentation
     └── requirements.txt                  # Python dependencies 
 
