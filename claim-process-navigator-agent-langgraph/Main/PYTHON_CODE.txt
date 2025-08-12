@@ -1,0 +1,101 @@
+# claim_process_navigator.py
+# Claim Process Navigator Agent - Python Version
+
+# STEP 0: Install dependencies (run these separately in terminal if not installed)
+# pip install -qU google-generativeai==0.8.5 google-ai-generativelanguage==0.6.15 \
+# langgraph langchain langchain-google-genai openai
+
+# STEP 1: Imports and secure API key input
+import os
+import getpass
+from langgraph.graph import StateGraph, END
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.messages import HumanMessage
+
+# Secure Gemini API Key input
+os.environ['GOOGLE_API_KEY'] = getpass.getpass("Enter Gemini API Key: ")
+
+# STEP 2: Initialize Gemini 1.5 Flash
+llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash-latest", temperature=0.2)
+
+# STEP 3: Node to ask Claim type
+def get_claim_type(state: dict) -> dict:
+    claim_type = input("Welcome to ADAM Hospital. Are you here for 'Cashless' or 'Reimbursement' claim? ").strip().lower()
+    state["claim_type"] = claim_type
+    return state
+
+# STEP 4: Node to get patient prompt
+def get_patient_prompt(state: dict) -> dict:
+    patient_prompt = input("Please describe your query or request regarding your claim: ").strip()
+    state["patient_prompt"] = patient_prompt
+    return state
+
+# STEP 5: Node for Claim type Routing
+def classify_node(state: dict) -> dict:
+    cashless_nodes = [
+        "cashless_choose", "cashless_confirm_network", "cashless_preauth_request", "cashless_preauth_query",
+        "cashless_preauth_approved", "cashless_discharge_request", "cashless_discharge_query",
+        "cashless_discharge_approved", "cashless_posthospital_claims"
+    ]
+    reimb_nodes = [
+        "reimb_choose", "reimb_doc_collection", "reimb_claim_form", "reimb_hospital_part",
+        "reimb_submission_advice", "reimb_end"
+    ]
+    claim_type = state["claim_type"]
+    options = cashless_nodes if "cashless" in claim_type else reimb_nodes
+    prompt = (
+        "You are an insurance claim assistant for a hospital. "
+        "Classify the user input into one of the node labels below.\n"
+        f"User input: {state['patient_prompt']}\n"
+        f"Options: {', '.join(options)}\n"
+        "Respond with only one exact node name from the list above."
+    )
+    response = llm.invoke([HumanMessage(content=prompt)])
+    node = response.content.strip()
+    print(f"[DEBUG] Node classified as: {node}")
+    state["node"] = node
+    return state
+
+# STEP 6: Category-specific response map
+reply_map = {
+    "cashless_choose": "Certainly! Let’s start your cashless insurance claim. Please verify whether your policy is empanelled with our hospital.",
+    "cashless_confirm_network": "Please visit the official website of your TPA to confirm if our hospital is empanelled for cashless services. You may also approach our TPA desk for assistance with completing and signing the pre-authorization form.",
+    "cashless_preauth_request": "Once submitted, your pre-authorization request is sent to the insurer/TPA which is typically completed within about 1 hour of submission.",
+    "cashless_preauth_query": "Understood. We’ll work with you and coordinate with your treating physician to promptly provide the required documents via our TPA desk.",
+    "cashless_preauth_approved": "Pre-auth is approved, and you will be admitted under cashless coverage. Final billing and discharge clearance will be based on actual treatment documentation.",
+    "cashless_discharge_request": "At discharge, we submit your final bill, investigation reports, and discharge summary to the insurer/TPA. Final approval is typically processed within about 3 hours post submission.",
+    "cashless_discharge_query": "We will submit any clarifications or additional documents via the TPA desk before discharge is cleared.",
+    "cashless_discharge_approved": "Yes, discharge is now approved. Any costs not covered, such as room upgrades or co-pay, will need to be settled before departure.",
+    "cashless_posthospital_claims": "Yes. Please submit your bills and prescriptions within 30 days of discharge to insurer/TPA for post-hospitalisation benefits.",
+    "reimb_choose": "Understood. We’ll prepare your hospital documents, and guide you on completing and submitting a reimbursement claim.",
+    "reimb_doc_collection": "Please collect the discharge summary, final hospital bill, pharmacy and lab receipts, doctor’s prescriptions, and investigation reports from the hospital.",
+    "reimb_claim_form": "You may download the reimbursement form from your insurer’s official website or request it via their agent or TPA. Please fill it fully before bringing it here.",
+    "reimb_hospital_part": "We will complete the hospital portion (Part B) of your claim form, stamp it, and return it to you.",
+    "reimb_submission_advice": "After getting the stamped reimbursement form, submit it with the original documents via insurer’s online portal, by courier, or at their TPA/office. Please keep the acknowledgment or courier receipt for your records.",
+    "reimb_end": "Your hospital assistance is complete. For claim status, queries, or updates, kindly connect with your insurer or TPA directly using your reference ID.",
+}
+
+def respond_to_prompt(state: dict) -> dict:
+    node = state["node"]
+    reply = reply_map.get(node, "Sorry, I couldn’t process that. Please visit the insurance desk for further help.")
+    state["answer"] = reply
+    return state
+
+# STEP 7: Build LangGraph
+builder = StateGraph(dict)
+builder.set_entry_point("get_claim_type")
+builder.add_node("get_claim_type", get_claim_type)
+builder.add_node("get_patient_prompt", get_patient_prompt)
+builder.add_node("classify_node", classify_node)
+builder.add_node("respond_to_prompt", respond_to_prompt)
+builder.add_edge("get_claim_type", "get_patient_prompt")
+builder.add_edge("get_patient_prompt", "classify_node")
+builder.add_edge("classify_node", "respond_to_prompt")
+builder.add_edge("respond_to_prompt", END)
+
+# STEP 8: Compile and invoke the graph
+if __name__ == "__main__":
+    graph = builder.compile()
+    final_state = graph.invoke({})
+    print("\n✅ Final Output:\n")
+    print(final_state["answer"])
