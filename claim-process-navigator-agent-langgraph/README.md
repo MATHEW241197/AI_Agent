@@ -67,9 +67,9 @@ claim-process-navigator
     │
     ├── Main
       ├── Claim_Process_Navigator_Agent.ipynb                 # Main notebook
-      ├── Python_Code.txt                                     # Python code 
+      ├── PYTHON_CODE.txt                                     # Python code 
     ├── samples
-      ├── My_langgraph-Medical_Assistant_Agent.ipynb          # Another similar agent e.g.
+      ├── My_langgraph-Medical_Assistant_Agent.ipynb          # Sample project with different idea
     ├── docs
       ├── image.png                                           # UI image
       ├── Report.pdf                                          # Project report 
