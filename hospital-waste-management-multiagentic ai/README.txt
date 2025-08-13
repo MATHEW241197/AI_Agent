@@ -34,8 +34,13 @@ This project is perfect for:
 
 1️⃣ Clone the repository
 
->git clone https://github.com/MATHEW241197/AI_Agent.git
->cd hospital-waste-ai-agent
+
+>git clone --no-checkout https://github.com/MATHEW241197/AI_Agent.git
+>cd AI_Agent
+>git sparse-checkout init --cone
+>git sparse-checkout set "hospital-waste-management-multiagentic ai"
+>git checkout main
+
 
 2️⃣ Set up environment
 
