@@ -34,7 +34,7 @@ This project is perfect for:
 
 1️⃣ Clone the repository
 
->git clone https://github.com/<your-username>/hospital-waste-ai-agent.git 
+>git clone https://github.com/MATHEW241197/AI_Agent.git
 >cd hospital-waste-ai-agent
 
 2️⃣ Set up environment
