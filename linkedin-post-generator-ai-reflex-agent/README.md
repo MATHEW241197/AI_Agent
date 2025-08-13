@@ -52,7 +52,7 @@ This project is perfect for:
 >git checkout main
 
 
-    2️⃣ Install dependencies
+2️⃣ Install dependencies
 
 Open the .ipynb file in Google Colab or Jupyter Notebook and run:
 
