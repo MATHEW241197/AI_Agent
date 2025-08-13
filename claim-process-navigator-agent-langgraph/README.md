@@ -24,9 +24,17 @@ An interactive hospital insurance claim assistant built with LangGraph, LangChai
 
 -Clone this repository
 
->git clone https://github.com/MATHEW241197/AI_Agent/claim-process-navigator-agent-langgraph.git
+>git clone --no-checkout https://github.com/MATHEW241197/AI_Agent.git
 
->cd claim-process-navigator
+>cd AI_Agent
+
+>git sparse-checkout init --cone
+
+>git sparse-checkout set "claim-process-navigator-agent-langgraph"
+
+>git checkout main
+
+
 
 -Install dependencies
 
